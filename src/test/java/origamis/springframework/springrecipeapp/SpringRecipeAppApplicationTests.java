@@ -8,7 +8,6 @@ class SpringRecipeAppApplicationTests {
 
     @Test
     void contextLoads() {
-        System.out.println("Context load");
     }
 
 }

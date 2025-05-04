@@ -7,7 +7,6 @@ import origamis.springframework.springrecipeapp.domain.Recipe;
 import origamis.springframework.springrecipeapp.repositories.RecipeRepository;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -19,13 +18,7 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public Recipe findById(Long id) {
-        Optional<Recipe> recipeOptional = recipeRepository.findById(id);
-
-        if (recipeOptional.isEmpty()) {
-            throw new RuntimeException("Recipe Not Found!");
-        }
-
-        return recipeOptional.get();
+        return recipeRepository.findById(id).orElseThrow(() -> new RuntimeException("Recipe Not Found!"));
     }
 
     @Override

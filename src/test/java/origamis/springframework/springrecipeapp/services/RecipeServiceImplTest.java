@@ -8,6 +8,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import origamis.springframework.springrecipeapp.domain.Recipe;
 import origamis.springframework.springrecipeapp.repositories.RecipeRepository;
 
+import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -46,5 +47,22 @@ class RecipeServiceImplTest {
         assertTrue(recipes.contains(recipe1));
         assertTrue(recipes.contains(recipe2));
         verify(recipeRepository, times(1)).findAll();
+    }
+    
+    @Test
+    void getRecipeByIdReturnsRecipe() {
+        // arrange
+        Recipe recipe = new Recipe();
+        recipe.setId(1L);
+
+        when(recipeRepository.findById(1L)).thenReturn(Optional.of(recipe));
+
+        // act
+        Recipe foundRecipe = recipeService.findById(1L);
+
+        // assert
+        assertNotNull(foundRecipe);
+        assertEquals(1L, foundRecipe.getId());
+        verify(recipeRepository, times(1)).findById(1L);
     }
 }
